@@ -33,11 +33,28 @@ import okhttp3.Response;
  * ================================================
  */
 public interface GlobalHttpHandler {
+    /**
+     * 处理 Http 响应结果
+     *
+     * @param httpResult
+     * @param chain
+     * @param response
+     * @return
+     */
     Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response);
 
+    /**
+     * 在请求之前执行
+     *
+     * @param chain
+     * @param request
+     * @return
+     */
     Request onHttpRequestBefore(Interceptor.Chain chain, Request request);
 
-    //空实现
+    /**
+     * 空实现
+     */
     GlobalHttpHandler EMPTY = new GlobalHttpHandler() {
         @Override
         public Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response) {

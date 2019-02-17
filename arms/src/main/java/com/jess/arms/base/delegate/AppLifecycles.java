@@ -30,6 +30,7 @@ import android.support.annotation.NonNull;
  * ================================================
  */
 public interface AppLifecycles {
+
     void attachBaseContext(@NonNull Context base);
 
     void onCreate(@NonNull Application application);

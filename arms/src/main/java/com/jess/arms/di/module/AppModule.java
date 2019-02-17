@@ -58,8 +58,9 @@ public abstract class AppModule {
     @Provides
     static Gson provideGson(Application application, @Nullable GsonConfiguration configuration) {
         GsonBuilder builder = new GsonBuilder();
-        if (configuration != null)
+        if (configuration != null) {
             configuration.configGson(application, builder);
+        }
         return builder.create();
     }
 
@@ -73,7 +74,7 @@ public abstract class AppModule {
      */
     @Singleton
     @Provides
-    static AppManager provideAppManager(Application application){
+    static AppManager provideAppManager(Application application) {
         return AppManager.getAppManager().init(application);
     }
 
@@ -99,7 +100,7 @@ public abstract class AppModule {
 
     @Singleton
     @Provides
-    static List<FragmentManager.FragmentLifecycleCallbacks> provideFragmentLifecycles(){
+    static List<FragmentManager.FragmentLifecycleCallbacks> provideFragmentLifecycles() {
         return new ArrayList<>();
     }
 

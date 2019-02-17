@@ -145,7 +145,7 @@ public final class EventBusManager {
         boolean skipSuperClasses = false;
         Class<?> clazz = subscriber.getClass();
         //查找类中符合注册要求的方法, 直到Object类
-        while (clazz != null && !isSystemCalss(clazz.getName()) && !skipSuperClasses) {
+        while (clazz != null && !isSystemClass(clazz.getName()) && !skipSuperClasses) {
             Method[] allMethods;
             try {
                 allMethods = clazz.getDeclaredMethods();
@@ -172,7 +172,7 @@ public final class EventBusManager {
         return false;
     }
 
-    private boolean isSystemCalss(String name) {
+    private boolean isSystemClass(String name) {
         return name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("android.");
     }
 }

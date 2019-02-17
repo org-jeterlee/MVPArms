@@ -43,7 +43,12 @@ public class FragmentDelegateImpl implements FragmentDelegate {
     private IFragment iFragment;
     private Unbinder mUnbinder;
 
-
+    /**
+     * 此处传入的 fragment 必须实现 IFragment 接口（即继承 BaseFragment 的子类）
+     *
+     * @param fragmentManager
+     * @param fragment
+     */
     public FragmentDelegateImpl(@NonNull android.support.v4.app.FragmentManager fragmentManager, @NonNull android.support.v4.app.Fragment fragment) {
         this.mFragmentManager = fragmentManager;
         this.mFragment = fragment;
@@ -57,16 +62,20 @@ public class FragmentDelegateImpl implements FragmentDelegate {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (iFragment.useEventBus())//如果要使用eventbus请将此方法返回true
-            EventBusManager.getInstance().register(mFragment);//注册到事件主线
+        //如果要使用eventbus请将此方法返回true
+        if (iFragment.useEventBus()) {
+            //注册到事件主线
+            EventBusManager.getInstance().register(mFragment);
+        }
         iFragment.setupFragmentComponent(ArmsUtils.obtainAppComponentFromContext(mFragment.getActivity()));
     }
 
     @Override
     public void onCreateView(@Nullable View view, @Nullable Bundle savedInstanceState) {
         //绑定到butterknife
-        if (view != null)
+        if (view != null) {
             mUnbinder = ButterKnife.bind(mFragment, view);
+        }
     }
 
     @Override
@@ -114,8 +123,11 @@ public class FragmentDelegateImpl implements FragmentDelegate {
 
     @Override
     public void onDestroy() {
-        if (iFragment != null && iFragment.useEventBus())//如果要使用eventbus请将此方法返回true
-            EventBusManager.getInstance().unregister(mFragment);//注册到事件主线
+        //如果要使用eventbus请将此方法返回true
+        if (iFragment != null && iFragment.useEventBus()) {
+            //注册到事件主线
+            EventBusManager.getInstance().unregister(mFragment);
+        }
         this.mUnbinder = null;
         this.mFragmentManager = null;
         this.mFragment = null;

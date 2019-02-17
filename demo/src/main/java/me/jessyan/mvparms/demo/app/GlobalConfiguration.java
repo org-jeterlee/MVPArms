@@ -18,13 +18,16 @@ package me.jessyan.mvparms.demo.app;
 import android.app.Application;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.module.GlobalConfigModule;
 import com.jess.arms.http.imageloader.glide.GlideImageLoaderStrategy;
 import com.jess.arms.http.log.RequestInterceptor;
 import com.jess.arms.integration.ConfigModule;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import me.jessyan.mvparms.demo.BuildConfig;
 import me.jessyan.mvparms.demo.mvp.model.api.Api;
 import me.jessyan.progressmanager.ProgressManager;
@@ -48,11 +51,12 @@ import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
  * ================================================
  */
 public final class GlobalConfiguration implements ConfigModule {
-//    public static String sDomain = Api.APP_DOMAIN;
+    // public static String sDomain = Api.APP_DOMAIN;
 
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
-        if (!BuildConfig.LOG_DEBUG) { //Release 时,让框架不再打印 Http 请求和响应的信息
+        //Release 时,让框架不再打印 Http 请求和响应的信息
+        if (!BuildConfig.LOG_DEBUG) {
             builder.printHttpLogLevel(RequestInterceptor.Level.NONE);
         }
 

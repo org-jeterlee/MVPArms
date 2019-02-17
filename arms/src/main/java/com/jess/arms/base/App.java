@@ -21,7 +21,7 @@ import com.jess.arms.di.component.AppComponent;
 
 /**
  * ================================================
- * 框架要求框架中的每个 {@link android.app.Application} 都需要实现此类, 以满足规范
+ * 框架要求框架中的每个 {@link android.app.Application} , 以都需要实现此类满足规范
  *
  * @see BaseApplication
  * @see <a href="https://github.com/JessYanCoding/MVPArms/wiki">请配合官方 Wiki 文档学习本框架</a>
@@ -34,6 +34,11 @@ import com.jess.arms.di.component.AppComponent;
  * ================================================
  */
 public interface App {
+    /**
+     * 这里提供 AppComponent 对象（全局性）, 用于 Dagger2 的依赖注入
+     *
+     * @return
+     */
     @NonNull
     AppComponent getAppComponent();
 }

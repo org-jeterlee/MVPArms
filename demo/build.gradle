@@ -2,7 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    // 解决方法：android 6.0(api 23) SDK，不再提供org.apache.http.*(只保留几个类)：
+    // https://blog.csdn.net/yy1300326388/article/details/48784475
+    // 继续使用 Apache HTTP API
     useLibrary 'org.apache.http.legacy'
 
     compileOptions {
@@ -75,11 +77,13 @@ dependencies {
     //依赖 arms-imageloader-glide 后还需要在 GlobalConfiguration 中手动注册 GlideImageLoaderStrategy
     implementation project(':arms-imageloader-glide')
     //Github 仓库上最新的 Demo 具有下一个版本的新特性, 所以依赖最新的远程库会出现版本不兼容的情况, 详情请查看 https://github.com/JessYanCoding/MVPArms/wiki/Issues#2
-//    implementation 'me.jessyan:arms:2.4.1'
+    //implementation 'me.jessyan:arms:2.4.1'
 
     //test
     testImplementation rootProject.ext.dependencies["junit"]
-    debugImplementation rootProject.ext.dependencies["canary-debug"]
-    releaseImplementation rootProject.ext.dependencies["canary-release"]
-    testImplementation rootProject.ext.dependencies["canary-release"]
+    androidTestImplementation rootProject.ext.dependencies["runner"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
+    debugImplementation rootProject.ext.dependencies["leakcanary-debug"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-release"]
+    testImplementation rootProject.ext.dependencies["leakcanary-release"]
 }

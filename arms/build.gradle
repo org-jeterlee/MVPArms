@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     useLibrary 'org.apache.http.legacy'
 
     compileOptions {
@@ -73,25 +72,25 @@ dependencies {
     api rootProject.ext.dependencies['rxerrorhandler2']
 
     //network
-    api(rootProject.ext.dependencies["retrofit"]) {
+    api(rootProject.ext.dependencies["retrofit2"]) {
         exclude module: 'okhttp'
         exclude module: 'okio'
     }
-    implementation(rootProject.ext.dependencies["retrofit-converter-gson"]) {
+    implementation(rootProject.ext.dependencies["retrofit2-converter-gson"]) {
         exclude module: 'gson'
         exclude module: 'okhttp'
         exclude module: 'okio'
         exclude module: 'retrofit'
     }
-    implementation(rootProject.ext.dependencies["retrofit-adapter-rxjava2"]) {
+    implementation(rootProject.ext.dependencies["retrofit2-adapter-rxjava2"]) {
         exclude module: 'rxjava'
         exclude module: 'okhttp'
         exclude module: 'retrofit'
         exclude module: 'okio'
     }
     api rootProject.ext.dependencies["okhttp3"]
-    compileOnly rootProject.ext.dependencies["glide"]
-    annotationProcessor(rootProject.ext.dependencies["glide-compiler"]) {
+    compileOnly rootProject.ext.dependencies["glide4"]
+    annotationProcessor(rootProject.ext.dependencies["glide4-compiler"]) {
         exclude module: 'jsr305'
     }
 

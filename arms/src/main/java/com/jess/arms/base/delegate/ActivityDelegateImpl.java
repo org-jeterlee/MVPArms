@@ -36,16 +36,20 @@ public class ActivityDelegateImpl implements ActivityDelegate {
     private Activity mActivity;
     private IActivity iActivity;
 
+    /**
+     * 此处传入的 activity 必须实现 IActivity 接口（即继承 BaseActivity 的子类）
+     *
+     * @param activity
+     */
     public ActivityDelegateImpl(@NonNull Activity activity) {
         this.mActivity = activity;
         this.iActivity = (IActivity) activity;
     }
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         //如果要使用 EventBus 请将此方法返回 true
-        if (iActivity.useEventBus()){
+        if (iActivity.useEventBus()) {
             //注册到事件主线
             EventBusManager.getInstance().register(mActivity);
         }
@@ -82,8 +86,9 @@ public class ActivityDelegateImpl implements ActivityDelegate {
     @Override
     public void onDestroy() {
         //如果要使用 EventBus 请将此方法返回 true
-        if (iActivity != null && iActivity.useEventBus())
+        if (iActivity != null && iActivity.useEventBus()) {
             EventBusManager.getInstance().unregister(mActivity);
+        }
         this.iActivity = null;
         this.mActivity = null;
     }

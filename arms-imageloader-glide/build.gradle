@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
@@ -21,7 +20,7 @@ android {
 }
 
 dependencies {
-    api(rootProject.ext.dependencies["glide"]) {
+    api(rootProject.ext.dependencies["glide4"]) {
         exclude module: 'support-annotations'
         exclude module: 'support-fragment'
     }

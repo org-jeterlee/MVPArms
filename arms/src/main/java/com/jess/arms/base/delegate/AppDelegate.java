@@ -113,6 +113,8 @@ public class AppDelegate implements App, AppLifecycles {
 
         this.mModules = null;
 
+        //注入的核心部分，或者说原理
+
         //注册框架内部已实现的 Activity 生命周期逻辑
         mApplication.registerActivityLifecycleCallbacks(mActivityLifecycle);
 

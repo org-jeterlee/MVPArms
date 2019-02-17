@@ -25,7 +25,6 @@ import com.jess.arms.http.log.RequestInterceptor;
 import com.jess.arms.utils.DataHelper;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +41,6 @@ import me.jessyan.rxerrorhandler.handler.listener.ResponseErrorListener;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -79,8 +77,9 @@ public abstract class ClientModule {
                 .baseUrl(httpUrl)//域名
                 .client(client);//设置okhttp
 
-        if (configuration != null)
+        if (configuration != null) {
             configuration.configRetrofit(application, builder);
+        }
 
         builder
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用 Rxjava
@@ -108,22 +107,21 @@ public abstract class ClientModule {
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .addNetworkInterceptor(intercept);
 
-        if (handler != null)
-            builder.addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    return chain.proceed(handler.onHttpRequestBefore(chain, chain.request()));
-                }
-            });
+        if (handler != null) {
+            //请求之前，执行一些操作
+            builder.addInterceptor(chain -> chain.proceed(handler.onHttpRequestBefore(chain, chain.request())));
+        }
 
-        if (interceptors != null) {//如果外部提供了interceptor的集合则遍历添加
+        if (interceptors != null) {
+            //如果外部提供了interceptor的集合则遍历添加
             for (Interceptor interceptor : interceptors) {
                 builder.addInterceptor(interceptor);
             }
         }
 
-        if (configuration != null)
+        if (configuration != null) {
             configuration.configOkhttp(application, builder);
+        }
         return builder.build();
     }
 

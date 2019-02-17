@@ -66,8 +66,7 @@ public class ArmsUtils {
      * @param res
      */
     public static void setViewHintSize(Context context, int size, TextView v, int res) {
-        SpannableString ss = new SpannableString(getResources(context).getString(
-                res));
+        SpannableString ss = new SpannableString(getResources(context).getString(res));
         // 新建一个属性对象,设置文字的大小
         AbsoluteSizeSpan ass = new AbsoluteSizeSpan(size, true);
         // 附加属性到文本  
@@ -458,6 +457,12 @@ public class ArmsUtils {
         AppManager.getAppManager().appExit();
     }
 
+    /**
+     * 从上下文中获取 AppComponent，应用必须（Application）实现 App 接口
+     *
+     * @param context
+     * @return
+     */
     public static AppComponent obtainAppComponentFromContext(Context context) {
         Preconditions.checkNotNull(context, "%s cannot be null", Context.class.getName());
         Preconditions.checkState(context.getApplicationContext() instanceof App, "%s must be implements %s", context.getApplicationContext().getClass().getName(), App.class.getName());
